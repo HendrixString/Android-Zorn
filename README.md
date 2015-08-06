@@ -74,7 +74,7 @@ sw.process();
 ####  notes
 * `IWorker.process(..)` method also have an overloaded version where one can pass `ExecutorService`
 * `IWorker` supports many more methods and ideas. I did not go through all.
-* in the future, I will add support for Java native 'FutureTask' and 'Callable' so worker can have cancelling feature.
+* in the future, I will add support for Java native `FutureTask` and `Callable` so worker can have cancelling feature.
 
 ### Using a Worker Manager
 Worker managers support a lot of functionality such as pause, start, stop etc..
