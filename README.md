@@ -9,7 +9,7 @@ Asynchronous Workers and Worker Managers for Android.
   * `TopologicalWorkerManager` - workers are processed according to a binary topological relation and order.
 
 ### Using a Worker
-1. Simply anonymously instantiate `AbstractWorker`
+#### Simply anonymously instantiate `AbstractWorker`
 
 ```
 AbstractWorker worker = new AbstractWorker() {
@@ -29,10 +29,11 @@ AbstractWorker worker = new AbstractWorker() {
     }
 };
 
+// run async
 worker.process();
 
 ```
-2. Simply extend `AbstractWorker`
+####  Simply extend `AbstractWorker`
 
 ```
 MyWorker worker = new MyWorker();
@@ -56,7 +57,7 @@ worker.process(new WorkerObserver() {
 
 ```
 
-3. use `SimpleWorker` with a `IWork` object (like `Runnable`)
+####  use `SimpleWorker` with a `IWork` object (like `Runnable`)
 
 ```
 SimpleWorker sw = new SimpleWorker(new IWork() {
@@ -69,6 +70,11 @@ SimpleWorker sw = new SimpleWorker(new IWork() {
 sw.process();
 
 ```
+
+####  notes
+* `IWorker.process(..)` method also have an overloaded version where one can pass `ExecutorService`
+* `IWorker` supports many more methods and ideas. I did not go through all.
+* in the future, I will add support for Java native 'FutureTask' and 'Callable' so worker can have cancelling feature.
 
 ### Using a Worker Manager
 Worker managers support a lot of functionality such as pause, start, stop etc..
@@ -139,6 +145,7 @@ tm.start();
 
 ### Dependencies
 * [`Erdos`](https://github.com/HendrixString/Erdos-Graph-framework)
+
 ### Terms
 * completely free source code. [Apache License, Version 2.0.](http://www.apache.org/licenses/LICENSE-2.0)
 * if you like it -> star or share it with others
