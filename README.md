@@ -1,7 +1,10 @@
 # Android-Zorn
 Asynchronous Workers and Worker Managers for Android.
 
-### Explanation
+## How to use
+simply fork or download the project, you can also download and create `.aar` file yourself.
+
+### Notable Features
 * use `Worker` API as a replacement for `AsyncTask`
 * workers run on background threads and return callbacks on the main(calling) thread.
 * automate a batch of workers with two worker managers:
