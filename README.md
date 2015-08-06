@@ -9,7 +9,7 @@ Asynchronous Workers and Worker Managers for Android.
   * `TopologicalWorkerManager` - workers are processed according to a binary topological relation and order.
 
 ### Using a Worker
-#### Simply anonymously instantiate `AbstractWorker`
+#### 1. Simply anonymously instantiate `AbstractWorker`
 
 ```
 AbstractWorker worker = new AbstractWorker() {
@@ -33,7 +33,7 @@ AbstractWorker worker = new AbstractWorker() {
 worker.process();
 
 ```
-####  Simply extend `AbstractWorker`
+#### 2. Simply extend `AbstractWorker`
 
 ```
 MyWorker worker = new MyWorker();
@@ -57,7 +57,7 @@ worker.process(new WorkerObserver() {
 
 ```
 
-####  use `SimpleWorker` with a `IWork` object (like `Runnable`)
+#### 3. use `SimpleWorker` with a `IWork` object (like `Runnable`)
 
 ```
 SimpleWorker sw = new SimpleWorker(new IWork() {
