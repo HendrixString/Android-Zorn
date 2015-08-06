@@ -3,6 +3,12 @@ package com.hendrix.zorn;
 import com.hendrix.zorn.managers.PriorityWorkerManager;
 import com.hendrix.zorn.managers.TopologicalWorkerManager;
 
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Use this {@code factory} class to find out about the various {@link com.hendrix.zorn.managers.IWorkerManager} implementations.
  *
@@ -10,6 +16,12 @@ import com.hendrix.zorn.managers.TopologicalWorkerManager;
  */
 @SuppressWarnings("unused")
 public class Zorn {
+
+    static public ThreadPoolExecutor defaultExecutorService;
+
+    {
+        setupExecutor();
+    }
 
     private Zorn() {
     }
@@ -33,5 +45,27 @@ public class Zorn {
     static public TopologicalWorkerManager.Builder newTopologicalWorkerManager() {
         return new TopologicalWorkerManager.Builder();
     }
+
+    /**
+     * setup the thread executor
+     */
+    private void setupExecutor()
+    {
+        int count_cpu           = Runtime.getRuntime().availableProcessors();
+
+        defaultExecutorService  = new ThreadPoolExecutor(count_cpu + 1, count_cpu*2 + 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), pmThreadFactory);
+    }
+
+    /**
+     * thread factory handed to the executor
+     */
+    private final ThreadFactory pmThreadFactory = new ThreadFactory() {
+        private final AtomicInteger mCount = new AtomicInteger(1);
+
+        @SuppressWarnings("NullableProblems")
+        public Thread newThread(Runnable r) {
+            return new Thread(r, "Zorn free worker, worker #" + mCount.getAndIncrement());
+        }
+    };
 
 }

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.hendrix.zorn.Zorn;
 import com.hendrix.zorn.managers.IWorkerManager;
 
 import java.util.concurrent.ExecutorService;
@@ -62,29 +63,29 @@ abstract public class AbstractWorker implements IWorker
     /**
      * worker priority
      */
-    protected int 						_priorityKey		    =	0;
+    protected int 				_priorityKey		=	0;
     /**
      * worker identification
      */
-    protected String 					_id							    = null;
+    protected String 			_id				    = null;
 
     /**
      * worker callbacks
      */
-    private WorkerObserver _observer              = null;
+    private WorkerObserver      _observer           = null;
     /**
      * internal {@link Runnable} for {@link ExecutorService}.
      */
-    private Runnable          _runner             = null;
+    private Runnable          _runner               = null;
     /**
      * internal {@link Handler} for moving results from background thread into calling thread.
      */
-    private Handler           _handler            = null;
+    private Handler           _handler              = null;
 
     /**
      * notify completion automatically after the worker has finished
      */
-    private boolean _flagAutomaticCompleteNotify = true;
+    private boolean _flagAutomaticCompleteNotify    = true;
 
     volatile private Status   _status             = Status.STATUS_READY;
 
@@ -126,8 +127,8 @@ abstract public class AbstractWorker implements IWorker
      */
     public AbstractWorker(String id, int priorityKey)
     {
-        _id 					= id;
-        _priorityKey 	= priorityKey;
+        _id             = id;
+        _priorityKey    = priorityKey;
 
         if(_id == null)
             _id         = String.valueOf(System.currentTimeMillis());
@@ -155,6 +156,16 @@ abstract public class AbstractWorker implements IWorker
     /**
      * process the item
      *
+     */
+    @Override
+    final public void process()
+    {
+        process(null, null);
+    }
+
+    /**
+     * process the item
+     *
      * @param workerObserver callback interface for a process
      */
     @Override
@@ -167,7 +178,7 @@ abstract public class AbstractWorker implements IWorker
      * process the item with multithreaded capabilities
      *
      * @param workerObserver  callback interface for a process
-     * @param es                the {@code ExecutorService} to interact with
+     * @param es              the {@code ExecutorService} to interact with
      */
     @Override
     final public void process(WorkerObserver workerObserver, ExecutorService es)
@@ -177,7 +188,8 @@ abstract public class AbstractWorker implements IWorker
         if(es != null)
             es.execute(_runner);
         else {
-            _runner.run();
+            Zorn.defaultExecutorService.execute(_runner);
+           // _runner.run();
         }
     }
 

@@ -18,6 +18,12 @@ public interface IWorkable extends IWork {
     /**
      * process the item
      *
+     */
+    void process();
+
+    /**
+     * process the item
+     *
      * @param workerObserver callback interface for a process
      */
     void process(WorkerObserver workerObserver);
