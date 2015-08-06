@@ -9,10 +9,133 @@ Asynchronous Workers and Worker Managers for Android.
   * `TopologicalWorkerManager` - workers are processed according to a binary topological relation and order.
 
 ### Using a Worker
-Simply anonymously instantiate or extend `AbstractWorker`
+1. Simply anonymously instantiate `AbstractWorker`
 
 ```
+AbstractWorker worker = new AbstractWorker() {
+    @Override
+    protected void onProgress() {
+        // runs on the calling/main thread
+    }
+
+    @Override
+    protected void onComplete() {
+        // runs on the calling/main thread
+    }
+
+    @Override
+    public void work() {
+        // here you put work to be done in a background thread
+    }
+};
+
+worker.process();
+
 ```
+2. Simply extend `AbstractWorker`
+
+```
+MyWorker worker = new MyWorker();
+
+worker.process(new WorkerObserver() {
+    @Override
+    public void onWorkerComplete(IWorker worker) {
+        // runs on the calling/main thread
+    }
+
+    @Override
+    public void onWorkerProgress(IWorker worker) {
+        // runs on the calling/main thread
+    }
+
+    @Override
+    public void onWorkerError(IWorker worker) {
+        // runs on the calling/main thread
+    }
+});
+
+```
+
+3. use `SimpleWorker` with a `IWork` object (like `Runnable`)
+
+```
+SimpleWorker sw = new SimpleWorker(new IWork() {
+    @Override
+    public void work() {
+        // here you put work to be done in a background thread
+    }
+});
+
+sw.process();
+
+```
+
+### Using a Worker Manager
+Worker managers support a lot of functionality such as pause, start, stop etc..
+
+#### Priority Worker Manager.
+```
+pm = new PriorityWorkerManager("myId");
+// serial mode
+pm.setExecutionMode(AbstractWorkerManager.EXECUTION_MODE.SERIAL);
+
+IWorker worker = null;
+String  id;
+int     priority;
+
+for(int ix = 0; ix < 20; ix++) {
+    id        = String.valueOf(ix);
+    priority  = ix;
+    
+    worker    = new TestWorker(id, priority);
+
+    pm.enqueue(worker);
+}
+
+pm.setListener(new WorkerManagerObserver() {
+    @Override
+    public void onComplete(IWorkerManager wm) {
+        // runs on the calling/main thread
+    }
+
+    @Override
+    public void onProgress(String id) {
+        // runs on the calling/main thread
+    }
+
+    @Override
+    public void onError(WorkerManagerErrorInfo err) {
+        // runs on the calling/main thread
+    }
+});
+
+pm.start();
+```
+
+#### Topological Worker Manager.
+Use the `TopologicalWorkerManager.Builder` or `Zorn.newTopologicalWorkerManager()`
+to create a worker manager that takes into account a directed binary relation among workers.
+```
+TestWorker a1 = new TestWorker("a1");
+TestWorker a2 = new TestWorker("a2");
+TestWorker a3 = new TestWorker("a3");
+TestWorker a4 = new TestWorker("a4");
+TestWorker a5 = new TestWorker("a5");
+
+TopologicalWorkerManager tm = new TopologicalWorkerManager.Builder().id("topological_test")
+                                                          .listener(this)
+                                                          .before(a1, a3)
+                                                          .before(a2, a3)
+                                                          .after(a4, a3)
+                                                          .after(a5, a4)
+                                                          .build();
+                                                          
+tm.setListener(...);
+
+tm.start();                                                          
+```
+
+
 
 ### Dependencies
 * [`Erdos`](https://github.com/HendrixString/Erdos-Graph-framework)
