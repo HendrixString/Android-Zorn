@@ -19,7 +19,7 @@ public class Zorn {
 
     static public ThreadPoolExecutor defaultExecutorService;
 
-    {
+    static {
         setupExecutor();
     }
 
@@ -49,23 +49,21 @@ public class Zorn {
     /**
      * setup the thread executor
      */
-    private void setupExecutor()
+    static private void setupExecutor()
     {
         int count_cpu           = Runtime.getRuntime().availableProcessors();
+
+        final ThreadFactory pmThreadFactory = new ThreadFactory() {
+            private final AtomicInteger mCount = new AtomicInteger(1);
+
+            @SuppressWarnings("NullableProblems")
+            public Thread newThread(Runnable r) {
+                return new Thread(r, "Zorn free worker, worker #" + mCount.getAndIncrement());
+            }
+        };
 
         defaultExecutorService  = new ThreadPoolExecutor(count_cpu + 1, count_cpu*2 + 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), pmThreadFactory);
     }
 
-    /**
-     * thread factory handed to the executor
-     */
-    private final ThreadFactory pmThreadFactory = new ThreadFactory() {
-        private final AtomicInteger mCount = new AtomicInteger(1);
-
-        @SuppressWarnings("NullableProblems")
-        public Thread newThread(Runnable r) {
-            return new Thread(r, "Zorn free worker, worker #" + mCount.getAndIncrement());
-        }
-    };
 
 }

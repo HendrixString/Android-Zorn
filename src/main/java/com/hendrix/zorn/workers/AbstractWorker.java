@@ -206,7 +206,7 @@ abstract public class AbstractWorker implements IWorker
      */
     @Override
     public String toString() {
-        return "Zorn Worker:: id=" + getId() + ", priority=" + getPriority() + ", status=" + _status.name();
+        return "Zorn Worker:: id=" + getId() + ", priority=" + getPriority() + ", status=" + _status.name() + ", thread:" + Thread.currentThread().getName();
     }
 
     /**
