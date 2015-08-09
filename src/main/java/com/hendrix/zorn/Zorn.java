@@ -47,14 +47,14 @@ public class Zorn {
     }
 
     /**
-     * setup the thread executor
+     * setup the default thread executor
      */
     static private void setupExecutor()
     {
-        int count_cpu           = Runtime.getRuntime().availableProcessors();
+        int count_cpu                           = Runtime.getRuntime().availableProcessors();
 
-        final ThreadFactory pmThreadFactory = new ThreadFactory() {
-            private final AtomicInteger mCount = new AtomicInteger(1);
+        final ThreadFactory pmThreadFactory     = new ThreadFactory() {
+            private final AtomicInteger mCount  = new AtomicInteger(1);
 
             @SuppressWarnings("NullableProblems")
             public Thread newThread(Runnable r) {
@@ -62,8 +62,7 @@ public class Zorn {
             }
         };
 
-        defaultExecutorService  = new ThreadPoolExecutor(count_cpu + 1, count_cpu*2 + 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), pmThreadFactory);
+        defaultExecutorService                  = new ThreadPoolExecutor(count_cpu + 1, count_cpu*2 + 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), pmThreadFactory);
     }
-
 
 }
