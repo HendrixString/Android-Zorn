@@ -81,6 +81,8 @@ sw.process();
 
 ### Using a Worker Manager
 Worker managers support a lot of functionality such as pause, start, stop etc..
+You can also implement a Worker manager using `BaseAbstractWorkerManager`, it is very easy.
+Contributions of new Worker managers are most welcome.
 
 #### Priority Worker Manager.
 ```
