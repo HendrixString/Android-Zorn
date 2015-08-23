@@ -19,19 +19,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @SuppressWarnings("UnusedDeclaration")
 abstract public class AbstractWorkerManager implements IWorkerManager, WorkerObserver {
-    private String                  _id                       = null;
+    private String                  _id                          = null;
     /**
      * ProcessManager status
      */
-    private WorkerManagerStatus     _status								    =	null;
+    private WorkerManagerStatus     _status                      = null;
     /**
      * observer
      */
-    protected WorkerManagerObserver _listener 		            = null;
+    protected WorkerManagerObserver _listener 		             = null;
     /**
      * the service that manages the running threads
      */
-    private ExecutorService _es                               = null;
+    private ExecutorService _es                                  = null;
 
     /**
      * the execution mode of the {@code AbstractWorkerManager}
@@ -39,7 +39,7 @@ abstract public class AbstractWorkerManager implements IWorkerManager, WorkerObs
      * <li/>{@code SERIAL} - in a given moment there is only one {@link IWorker} running.
      * <li/>{@code NON_SERIAL} - there is no bound on the amount of workers running.
      */
-    private EXECUTION_MODE _em                                = null;
+    private EXECUTION_MODE _em                                   = null;
     /**
      * the number of worker active at any moment. only makes sense if it is {@code 1} or {@code Integer.MAX_VALUE},
      * since they are delivered to a {@code Queue} of an {@link ThreadPoolExecutor}. Therefore use {@code 1} if
