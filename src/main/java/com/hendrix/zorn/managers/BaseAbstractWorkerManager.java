@@ -41,7 +41,7 @@ abstract public class BaseAbstractWorkerManager extends AbstractWorkerManager {
         super(id);
 
         if(_storeFinishedWorkers)
-            _finishedWorkers    =	new HashMap<>();
+            _finishedWorkers    =   new HashMap<>();
 
         _runningWorkers         =   new ArrayList<>();
         _failedWorkers          =   new ArrayList<>();
