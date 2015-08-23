@@ -31,7 +31,7 @@ abstract public class BaseAbstractWorkerManager extends AbstractWorkerManager {
     /**
      * a mutable flag indicating if finished processes are stored and can later be retrieved with the api
      */
-    private boolean _storeFinishedWorkers =	true;
+    private boolean _storeFinishedWorkers = true;
 
     /**
      * {@inheritDoc}
