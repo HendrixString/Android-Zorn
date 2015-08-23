@@ -27,7 +27,7 @@ public class PriorityWorkerManager extends BaseAbstractWorkerManager {
     public PriorityWorkerManager(String id) {
         super(id);
 
-        Comparator<IPriority> comparator 	= new PriorityComparator();
+        Comparator<IPriority> comparator    = new PriorityComparator();
 
         _pendingWorkers                     = new PriorityQueue<>(10, comparator);
     }
