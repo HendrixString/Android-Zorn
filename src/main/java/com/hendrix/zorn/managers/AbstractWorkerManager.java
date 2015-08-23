@@ -27,7 +27,7 @@ abstract public class AbstractWorkerManager implements IWorkerManager, WorkerObs
     /**
      * observer
      */
-    protected WorkerManagerObserver _listener 		             = null;
+    protected WorkerManagerObserver _listener                    = null;
     /**
      * the service that manages the running threads
      */
