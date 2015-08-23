@@ -35,20 +35,20 @@ public class WorkerManagerStatus implements IDisposable
         STATUS_STOP
     }
 
-    public 	boolean 												flagTraceLog		=	true;
+    public  boolean                             flagTraceLog    = true;
 
-    public 	int 														numComplete			= 0;
-    public 	int 														numTotal				= 0;
+    public  int                                 numComplete     = 0;
+    public  int                                 numTotal        = 0;
 
-    private Status 													_status					= null;
+    private Status                              _status         = null;
 
-    private ArrayList<WorkerManagerErrorInfo> 	_errors					=	null;
+    private ArrayList<WorkerManagerErrorInfo>   _errors         = null;
 
     public WorkerManagerStatus()
     {
-        _errors	=	new ArrayList<>();
+        _errors = new ArrayList<>();
 
-        _status	=	Status.STATUS_READY;
+        _status = Status.STATUS_READY;
     }
 
     /**
@@ -88,7 +88,7 @@ public class WorkerManagerStatus implements IDisposable
 
         cleanErrors();
 
-        _errors	=	null;
+        _errors = null;
     }
 
     /**
@@ -96,7 +96,7 @@ public class WorkerManagerStatus implements IDisposable
      *
      * @return the {@link WorkerManagerStatus.Status}
      */
-    public Status getStatus()	{	return _status;	}
+    public Status getStatus() { return _status; }
 
     /**
      * set a new {@link WorkerManagerStatus.Status}

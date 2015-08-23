@@ -63,11 +63,11 @@ abstract public class AbstractWorker implements IWorker
     /**
      * worker priority
      */
-    protected int 				_priorityKey		=	0;
+    protected int               _priorityKey        = 0;
     /**
      * worker identification
      */
-    protected String 			_id				    = null;
+    protected String            _id                 = null;
 
     /**
      * worker callbacks
@@ -76,18 +76,18 @@ abstract public class AbstractWorker implements IWorker
     /**
      * internal {@link Runnable} for {@link ExecutorService}.
      */
-    private Runnable          _runner               = null;
+    private Runnable            _runner             = null;
     /**
      * internal {@link Handler} for moving results from background thread into calling thread.
      */
-    private Handler           _handler              = null;
+    private Handler             _handler            = null;
 
     /**
      * notify completion automatically after the worker has finished
      */
     private boolean _flagAutomaticCompleteNotify    = true;
 
-    volatile private Status   _status             = Status.STATUS_READY;
+    volatile private Status     _status             = Status.STATUS_READY;
 
     public enum Status {
         /**
@@ -189,7 +189,7 @@ abstract public class AbstractWorker implements IWorker
             es.execute(_runner);
         else {
             Zorn.defaultExecutorService.execute(_runner);
-           // _runner.run();
+            // _runner.run();
         }
     }
 

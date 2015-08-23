@@ -75,7 +75,6 @@ public class SimpleWorker extends AbstractWorker {
      */
     @Override
     protected void onProgress() {
-
     }
 
     /**
@@ -83,6 +82,5 @@ public class SimpleWorker extends AbstractWorker {
      */
     @Override
     protected void onComplete() {
-
     }
 }
