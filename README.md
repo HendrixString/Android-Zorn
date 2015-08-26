@@ -1,6 +1,8 @@
 # Android-Zorn
 Asynchronous Workers and Worker Managers for Android.
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android--Zorn-green.svg?style=flat)](https://android-arsenal.com/details/1/2291)
+
 ## How to use
 simply fork or download the project, you can also download and create `.aar` file yourself.
 
