@@ -16,7 +16,7 @@ simply fork or download the project, you can also download and create `.aar` fil
 ### Using a Worker
 #### 1. Simply anonymously instantiate `AbstractWorker`
 
-```
+```java
 AbstractWorker worker = new AbstractWorker() {
     @Override
     protected void onProgress() {
@@ -40,7 +40,7 @@ worker.process();
 ```
 #### 2. Simply extend `AbstractWorker`
 
-```
+```java
 MyWorker worker = new MyWorker();
 
 worker.process(new WorkerObserver() {
@@ -64,7 +64,7 @@ worker.process(new WorkerObserver() {
 
 #### 3. use `SimpleWorker` with a `IWork` object (like `Runnable`)
 
-```
+```java
 SimpleWorker sw = new SimpleWorker(new IWork() {
     @Override
     public void work() {
@@ -87,7 +87,7 @@ You can also implement a Worker manager using `BaseAbstractWorkerManager`, it is
 Contributions of new Worker managers are most welcome.
 
 #### Priority Worker Manager.
-```
+```java
 pm = new PriorityWorkerManager("myId");
 // serial mode
 pm.setExecutionMode(AbstractWorkerManager.EXECUTION_MODE.SERIAL);
@@ -128,7 +128,7 @@ pm.start();
 #### Topological Worker Manager.
 Use the `TopologicalWorkerManager.Builder` or `Zorn.newTopologicalWorkerManager()`
 to create a worker manager that takes into account a directed binary relation among workers.
-```
+```java
 TestWorker a1 = new TestWorker("a1");
 TestWorker a2 = new TestWorker("a2");
 TestWorker a3 = new TestWorker("a3");
